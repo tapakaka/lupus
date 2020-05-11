@@ -14,8 +14,7 @@ $find -user <user_name> # all files of a user
 $find -user <user_name> | more # all files of a user/show screen by screen
 $find -perm 644 # all files with permissions rw-r-r
 $find -name <"file_name"> -exec chmod 700 {} \; # find file and execute command (e.g. chmod)
-$locate <file_name> # less powerful and flexible than find, depends on a database that might not be updated,
-$to update use $updatedb
+$locate <file_name> # less powerful and flexible than find, depends on a database that might not be updated, to update use $updatedb
 $which python # tells which version of a program is going to be executed and its directory
 $which ifconfig # tells which version of a program is going to be executed and its directory
 
@@ -61,15 +60,41 @@ touch, cp, pwd, mkdir, mv, rm, rmdir, rm -rf,
 $mkdir -p dir1/dir2/dir3 # make dir and sub dirs
 
 	- Create and Manage Hard and Soft Links
-ln /source link_name # make a hardlink to a file
-ln -s /source link_name # make a symbolic link to a file
+$ln /source link_name # make a hardlink to a file
+$ln -s /source link_name # make a symbolic link to a file
 
  - List, Set, and Change Standard File Permissions
+$ll = ls -l # files with info
+$ls - la # hidden files as well
+$chmod u+rwx <file> # user has rwx
+$chmod g-rwx o-rwx <file> # group and all get no rwx
+$chmod a+rwx <file> # all get rwx
+$chmod 644 <file> # user get rw, group and all get r // 4-read, 2-write, 1-exec
+$chmod 755 <directory> # FOR DIRECTORY w-vreate files in directory, x-open directory, r-list content
 
+ - Read, and Use System Documentation
+man pages
+$apropos <search word> # search for evrything
+$info <search word> # simlar to man pages, not the same
+$cd usr/share/doc # info abour installed packages
 
-
-
-
+ - Manage Access to the Root Account
+$whoami # current user
+$su # change to super user (root) priviliges in the ordinary user shell (environment) - if installing a program that way the ordinary
+user may get some permissions that he will normally not get if the install is under $su -
+$su - # change to su in su shell
+$su <user> # switch to other user
+$sudo <command> # execute just one command as root (asks for current user pass, not root pass), easy to disable root privileges for a 
+user form sudoers file - if all user use su instead of sudo, admin will need to renew root password when a user is to be 
+stripped of his root acces
+$sudo visudo # edit sudoers file
+$groups # in which groups is the current user
+$groups <user>
+$id # view numerical IDs associated with each group for the current user
+$getent group # view all groups on a system
+$usermod -a -G <group> <user> # add a group to user - there is usually a group that gives root rights to its members (wheel in debian,
+sudoers in ubuntu, etc.); usually needs re-logging to take effect
+$sudo !! # execute previous command as sudo
 
 
 	- Misc
@@ -77,7 +102,10 @@ ln -s /source link_name # make a symbolic link to a file
 df -h # (disk free) the drives that are mounted(some are virtual - in ram, created for processes)
 chmod 1 - x, 2 - w, 3 - wx, 4 - r, 5 - rx, 6 -rw, 7 - rwx
 tar- tape archive (to store on magnetic tape) 
-TCP - protocol that allows multilayer connectivity between a client and a web server (which may have many different services) - IP protocol allows only a client to connect to a server; TCP allows for simultaneous connections on different ports to use different services of a server - common ports - 80 web server, 25 mail server, 22 ssh; for instance a client may open several connections on port 80 to download different parts of a webpage in order to show the webpage faster
+TCP - protocol that allows multilayer connectivity between a client and a web server (which may have many different services),
+IP protocol allows only a client to connect to a server; TCP allows for simultaneous connections on different ports to use different 
+services of a server - common ports - 80 web server, 25 mail server, 22 ssh; for instance a client may open several connections on 
+port 80 to download different parts of a webpage in order to show the webpage faster
 search in man pages once inside a particular command:
 / search word
 n - go to next result
