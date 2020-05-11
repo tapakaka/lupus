@@ -1,0 +1,91 @@
+	- Search for Files
+$find -name <"file_name"> # in current directory
+$find -name <"file_name*"> # in current directory - show all with that word in their name
+$find -iname <"file_name"> # in current directory, ignore case sensitivity(name, NAME, NaMe)
+$find -not -name <"file_name"> # in current directory, all files that are not file_name
+$find -type d # search for directories (with -type - to search for links, devices, etc.)
+$find / -name <"file_name"> # in all system
+$find / -name <"file_name"> 2>/dev/null # filter out all errors
+$find / -name <"file_name"> 2>&1 | grep -v "some_error" # sends stderr to stdout and then filters to not show a specific error 
+$find / -type f -name "*.log" # all files ending in .log
+$find -size +1M # all files larger than 1 MB (M=MB, k=kb, c=byte)
+$find -type f -mtime +1 # files older than one day (-1 - from today, -50 - last 50 days)
+$find -user <user_name> # all files of a user
+$find -user <user_name> | more # all files of a user/show screen by screen
+$find -perm 644 # all files with permissions rw-r-r
+$find -name <"file_name"> -exec chmod 700 {} \; # find file and execute command (e.g. chmod)
+$locate <file_name> # less powerful and flexible than find, depends on a database that might not be updated,
+$to update use $updatedb
+$which python # tells which version of a program is going to be executed and its directory
+$which ifconfig # tells which version of a program is going to be executed and its directory
+
+	- Compare and Manipulate File Content and Use Input-Output Redirection
+$cat <file_name> | more # show content from file beginning
+$sort <file_name> # sort content alphabetically
+$cat <file_name> <file_name> | sort
+$cat <file_name> <file_name> | sort > <combined_file>
+$fmt -u file_name # format text  (cleans spaces, ..?) /on screen - do not saves the format
+$nl file_name # shows number of lines
+$nl file_name > new_file # create new file with numbered lines
+$cut -d "<symbol>" -f1 file_name # show everything before the delimiting symbol (or -f2 - after it)
+$<command> > new_file # create file and insert output of command (TEST, NOT ON CM?)
+
+	- Analyze Text Using Basic Regular Expressions
+^ and $ - anchor characters (^ starting, $ ending); period (.) - special character means any character
+$grep '^ball' file_name # search for every line starting with ball 
+$grep 'ball$' file_name # search for every line ending with ball 
+$grep 'ball' file_name # search for every line with ball
+$grep '^.$' file_name # search for every line having only one character 
+$grep '^..$' file_name # search for every line having only two characters 
+$grep '^[0-9]or [A-Z]or [a-z]or [7]' file_name# search for line starting with all digits or all capital letters or 7 or …. (not at once)
+$grep '^[A-Z, d]' file_name 
+?? grep '[Feb] [ls]' test_file
+$grep '^T[a-z][^e]' file_name # the two carrots(^) are different - first search in beginning of line, second means a character that is not 'e'
+$grep '^[a-z]*' # any word starting with zero or more letters
+$grep '[a-z]\{4,8\}' # any word with 4 to 8 letters
+
+	- Archive, Backup, Compress, Unpack, and Decompress Files
+$cp /source /destination # copy just files!
+$cp -rf /source /destination # copy all files with dir and subdir
+$tar cvf new_file.tar /source # create archive, not compressed (c-new file, v - verbose, tell what is happening, f- store to a single file)
+$tar tvf new_file.tar # list files in archive
+$tar tvf new_file.tar | grep # search in archive
+$gzip new_file.tar # compress an archive
+$gzip random_file # compress any file
+$gunzip random_file # decompress any file
+$tar cvfz new_file.tar.gz /source # archive and compress
+$tar xvfz new_file.tar.gz # extract compressed archive (x-extract, v - verbose, f- file, z - zipped)
+
+	- Create, Delete, Copy, and Move Files and Directories
+touch, cp, pwd, mkdir, mv, rm, rmdir, rm -rf, 
+$mkdir -p dir1/dir2/dir3 # make dir and sub dirs
+
+	- Create and Manage Hard and Soft Links
+ln /source link_name # make a hardlink to a file
+ln -s /source link_name # make a symbolic link to a file
+
+ - List, Set, and Change Standard File Permissions
+
+
+
+
+
+
+
+	- Misc
+
+df -h # (disk free) the drives that are mounted(some are virtual - in ram, created for processes)
+chmod 1 - x, 2 - w, 3 - wx, 4 - r, 5 - rx, 6 -rw, 7 - rwx
+tar- tape archive (to store on magnetic tape) 
+TCP - protocol that allows multilayer connectivity between a client and a web server (which may have many different services) - IP protocol allows only a client to connect to a server; TCP allows for simultaneous connections on different ports to use different services of a server - common ports - 80 web server, 25 mail server, 22 ssh; for instance a client may open several connections on port 80 to download different parts of a webpage in order to show the webpage faster
+search in man pages once inside a particular command:
+/ search word
+n - go to next result
+shift + n - go back one result
+compress directory - use tar command as direct gzip is for files only
+$gzip -r directory_name - that will compress each file in the directory separately
+rename file - with mv
+hard link - a file is actually a link pointing to where in the hdd is written the info in the file; we can have several hard
+links to the same file, editing hard link edits the original file, renaming a hard link does not affect other hard links to  the same file
+soft link - a symbolic link to a file name; changing the hard link name will break the soft link 
+awk???
